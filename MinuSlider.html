@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slider</title>
+  </head>
+  <body onresize="sliderLayout()">
+  	<div id='sliderContainer'>
+	  	<div id='sliderContent'>
+			<!--Hier kommen die Inhalte fuer den slider rein
+			erstes element muss die id="i1" haben.
+			Alle Elemente bekommen die class="sliderInhalt"-->
+		  <div id="i1" class="sliderInhalt">seite1</div>
+		  <div id="i2" class="sliderInhalt">seite2</div>
+		  <div id="i3" class="sliderInhalt">seite3</div>
+		  <div id="i4" class="sliderInhalt">seite4</div>
+		  <div id="i5" class="sliderInhalt">seite5</div>
+	  	</div>
+		<div id="buttons">
+			<button id="minus" onclick='slider(-1)'><<<</button>
+  			<button id="plus" onclick='slider(1)'>>>></button>
+		</div>
+	</div>
+
+	  <style>
+	  		body{/*Zentriert den Slider im Browser (nicht notwendig)*/
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				background: #222;
+			}
+	  		button{
+				color:white;
+				height: 4vw;
+				border: none;
+				background: #0005;
+				transition: 0.1s background;
+			}
+			button:hover{
+				transition: 0.1s background;
+				background: #2227;
+			}
+			#buttons{
+				height:0;/*"Versteckt" das Gruppierungselement der buttons (sollte so bleiben)*/
+			}
+			#plus{
+				float: right;
+			}
+	  		#sliderContent>div{
+				color:white;
+				float:left;/*inhalt muss nebeneinander liegen*/
+			}
+			#sliderContent{
+				/*slider Geschwindigkeit in Sekunden (oder wahlweise ms)*/
+				transition: 0.3s transform ease-in-out;
+			}
+			#sliderContainer{
+				box-shadow: 0 15px 15px -15px;
+			}
+	  		.sliderInhalt{
+				/*Hoehe und Breite des Inhalts festlegen,
+				 der slider passt sich dann automatisch an*/
+				width:50vw;
+				height: 50vh;
+				/*das hier drunter ist nur fuer die Testansicht*/
+				text-align: center;
+				background: #444;
+				line-height: 49vh;
+			}
+	  </style>
+
+	  <script>
+	  //alles hier drunter kann eigentlich so bleiben wie es ist,
+	  //das Script passt sich dem Inhalt an
+	  let sliderIndex = 0
+	  let sliderContainer = document.getElementById('sliderContainer')
+	  let sliderContent =	document.getElementById('sliderContent')
+	  let bildAnzahl = sliderContent.children.length
+
+	  let width
+	  let offset
+	  sliderContainer.style.overflow=`hidden`
+
+	  function sliderLayout(){
+		  sliderContent.style.transform = `translateX(0px)`
+		  let breite = document.getElementById('i1').offsetWidth
+		  sliderContainer.style.width = `${breite}px`
+   	  sliderContent.style.width = `calc(${breite}px * ${bildAnzahl} *2)`
+		  let buttonH = document.getElementById('plus').clientHeight;
+		  let sliderH = document.getElementById('i1').clientHeight
+		  document.getElementById('sliderContainer').style.height = `${sliderH}px`
+		  let HCenter = sliderH + buttonH
+		  document.getElementById('buttons').style.transform=`translateY(-${HCenter/2}px)`
+		  slider(0)
+	  }
+	  sliderLayout()
+	  function slider(direction){
+		width = sliderContainer.clientWidth
+	   sliderIndex = sliderIndex + direction
+	   if(sliderIndex<0){
+				sliderIndex=bildAnzahl-1;
+	   }else if(sliderIndex>=bildAnzahl){
+				sliderIndex=0;
+	   }
+	   offset = sliderIndex * width
+	   sliderContent.style.transform = `translateX(-${offset}px)`
+	  }
+	  //automatisches weiterklicken des Sliders. Zeit in ms am Ende der Klammer.
+	  setInterval(function autoSlide(){slider(1)}, 8000)
+	  </script>
+  </body>
+</html>
