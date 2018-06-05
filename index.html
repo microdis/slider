@@ -9,13 +9,12 @@
   	<div id='sliderContainer'>
 	  	<div id='sliderContent'>
 			<!--Hier kommen die Inhalte fuer den slider rein
-			erstes element muss die id="i1" haben.
 			Alle Elemente bekommen die class="sliderInhalt"-->
-		  <div id="i1" class="sliderInhalt">seite1</div>
-		  <div id="i2" class="sliderInhalt">seite2</div>
-		  <div id="i3" class="sliderInhalt">seite3</div>
-		  <div id="i4" class="sliderInhalt">seite4</div>
-		  <div id="i5" class="sliderInhalt">seite5</div>
+		  <div class="sliderInhalt">seite1</div>
+		  <div class="sliderInhalt">seite2</div>
+		  <div class="sliderInhalt">seite3</div>
+		  <div class="sliderInhalt">seite4</div>
+		  <div class="sliderInhalt">seite5</div>
 	  	</div>
 		<div id="buttons">
 			<button id="minus" onclick='slider(-1)'><<<</button>
@@ -85,11 +84,11 @@
 
 	  function sliderLayout(){
 		  sliderContent.style.transform = `translateX(0px)`
-		  let breite = document.getElementById('i1').offsetWidth
+		  let breite = document.getElementsByClassName('sliderInhalt')[0].offsetWidth
 		  sliderContainer.style.width = `${breite}px`
    	  sliderContent.style.width = `calc(${breite}px * ${bildAnzahl} *2)`
 		  let buttonH = document.getElementById('plus').clientHeight;
-		  let sliderH = document.getElementById('i1').clientHeight
+		  let sliderH = document.getElementsByClassName('sliderInhalt')[0].clientHeight
 		  document.getElementById('sliderContainer').style.height = `${sliderH}px`
 		  let HCenter = sliderH + buttonH
 		  document.getElementById('buttons').style.transform=`translateY(-${HCenter/2}px)`
