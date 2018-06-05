@@ -17,8 +17,8 @@
 		  <div class="sliderInhalt">seite5</div>
 	  	</div>
 		<div id="buttons">
-			<button id="minus" onclick='slider(-1)'><<<</button>
-  			<button id="plus" onclick='slider(1)'>>>></button>
+			<button id="minus" class="sliderButton" onclick='slider(-1), this.blur()'><<<</button>
+  			<button id="plus" class="sliderButton" onclick='slider(1), this.blur()'>>>></button>
 		</div>
 	</div>
 
@@ -30,12 +30,13 @@
 				height: 100vh;
 				background: #222;
 			}
-	  		button{
+	  		.sliderButton{
 				color:white;
 				height: 4vw;
 				border: none;
 				background: #0005;
 				transition: 0.1s background;
+				cursor: pointer;
 			}
 			button:hover{
 				transition: 0.1s background;
